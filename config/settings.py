@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'apps.books',
+    'apps.account'
 ]
 
 MIDDLEWARE = [
@@ -132,6 +133,7 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+AUTH_USER_MODEL = 'account.User'
 
 
 # Default primary key field type
