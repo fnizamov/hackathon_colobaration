@@ -1,0 +1,5 @@
+THRILLER='https://www.litmir.me/bs/?g=sg72'
+ROMAN='https://www.litmir.me/bs/?g=sg173'
+FANTASY='https://www.litmir.me/bs/?g=sg140'
+ABC='https://www.litmir.me/bs/?g=sg304'
+CYBERPUNK='https://www.litmir.me/bs/?g=sg135'
