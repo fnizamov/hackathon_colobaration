@@ -12,7 +12,7 @@ admin.site.register(Genre, CategoryAdmin)
 
 class TabularInLineImages(admin.TabularInline):
     model = BookImage
-    extra = 3
+    extra = 1
     fields = ['image']
 
 class BookAdmin(admin.ModelAdmin):

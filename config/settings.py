@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
     'apps.books',
-    'apps.account'
+    'apps.account',
+    'apps.review',
 ]
 
 MIDDLEWARE = [
