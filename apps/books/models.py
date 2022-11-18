@@ -6,14 +6,14 @@ from django.urls import reverse
 
 from slugify import slugify
 from .parsing import get_db
-
+from .utils import get_time
 
 
 User = get_user_model()
 
 
 class Genre(models.Model):
-    title = models.CharField(max_length=200, unique=True, db_index=True)
+    title = models.CharField(max_length=200, unique=True, db_index=True, primary_key=True)
     slug = models.SlugField(max_length=200, db_index=True, unique=True, blank=True)
 
     def __str__(self) -> str:
@@ -46,19 +46,19 @@ class Book(models.Model):
     )
     genre = models.ForeignKey(Genre, related_name='books', on_delete=models.CASCADE)
     author = models.CharField(max_length=50, db_index=True)
-    title = models.CharField(max_length=200, db_index=True, primary_key=True)
-    slug = models.SlugField(max_length=200, db_index=True)
+    title = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True, blank=True, primary_key=True)
     description = models.TextField(blank=True)
     year = models.PositiveIntegerField()
     language = models.CharField(max_length=7, choices=LANGUAGE_CHOICES, default='русский')
     price = models.PositiveSmallIntegerField()
     discount = models.BooleanField(default=False)
-    discount_price = models.PositiveSmallIntegerField()
+    discount_price = models.PositiveSmallIntegerField(blank=True, null=True)
     pages = models.PositiveIntegerField(default=1)
     weight = models.PositiveSmallIntegerField()
     image = models.ImageField(upload_to='media/books_images/%Y/%m/%d', blank=True, null=True)
     image_link = models.CharField(max_length=1000, blank=True, null=True)
-    stock = models.PositiveIntegerField()
+    stock = models.PositiveIntegerField(default=1)
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -68,7 +68,7 @@ class Book(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.title)
+            self.slug = slugify(self.title + get_time())
         super().save(*args, **kwargs)
         
     class Meta:
@@ -99,7 +99,7 @@ class BookImage(models.Model):
 # for i in db:
 #     book = Book.objects.create(
 #             user = User.objects.get(username='admin'),
-#             genre = Genre.objects.get(title='ABC'),
+#             genre = Genre.objects.get(title='Роман'),
 #             author = i['author'],
 #             title = i['title'],
 #             description = i['desc'],
