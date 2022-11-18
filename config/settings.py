@@ -48,9 +48,8 @@ INSTALLED_APPS = [
 
     'apps.account',
     'apps.books',
-    
-
-    
+    'apps.account',
+    'apps.review',
 ]
 
 MIDDLEWARE = [

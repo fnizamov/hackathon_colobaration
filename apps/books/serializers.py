@@ -3,11 +3,14 @@ from email.policy import default
 from requests import request
 from rest_framework import serializers
 from django.db.models import Avg
+
 from .models import(
     Genre,
     Book,
     BookImage,
 )
+
+from apps.review.serializers import CommentSerializer
 
 
 class BooksSerializer(serializers.ModelSerializer):
@@ -32,11 +35,11 @@ class BooksSerializer(serializers.ModelSerializer):
         attrs['user'] = user
         return attrs
 
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     representation['comments'] = CommentSerializer(instance.comments.all(), many=True).data
-    #     representation['comments_count'] = instance.comments.all().count()
-    #     return representation
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['comments'] = CommentSerializer(instance.comments.all(), many=True).data
+        representation['comments_count'] = instance.comments.all().count()
+        return representation
 
 
 class BooksListSerializer(serializers.ModelSerializer):
@@ -44,18 +47,16 @@ class BooksListSerializer(serializers.ModelSerializer):
         model = Book
         fields = ('title', 'genre', 'author', 'year', 'pages', 'language', 'price')
 
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     representation['comments_count'] = instance.comments.all().count()
-    #     return representation
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['comments_count'] = instance.comments.all().count()
+        return representation
+
 
 class GenreListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('title', 'slug')
-
-
-
 
 
 class BookImageSerializer(serializers.ModelSerializer):
