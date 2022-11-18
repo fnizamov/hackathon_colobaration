@@ -78,7 +78,7 @@ class Book(models.Model):
 
 
 class BookImage(models.Model):
-    image = models.ImageField(upload_to='books_images/carousel')
+    image = models.ImageField(upload_to='media/books_images/carousel')
     book = models.ForeignKey(
         to=Book,
         on_delete=models.CASCADE,

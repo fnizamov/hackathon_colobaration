@@ -35,7 +35,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('admin/', admin.site.urls),
-    # path('api/account/', include('apps.account.urls')),
-    path('api/market/', include('apps.books.urls')),
+    path('account/', include('apps.account.urls')),
+    path('market/', include('apps.books.urls')),
     # path('api/market/', include('apps.order.urls')),
 ]
