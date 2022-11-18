@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4 import Tag, ResultSet
 
-from genre import ROMAN, FANTASY, CYBERPUNK, ABC, THRILLER
+# from .genre import ROMAN, FANTASY, CYBERPUNK, ABC, THRILLER
 
 
 HOST = 'https://www.litmir.me'
@@ -92,11 +92,11 @@ def parse_data_from_cards(cards):
     return result
 
 
-if __name__ == '__main__':
-    html = get_html(THRILLER) 
-    cards = get_card_from_html(html)
-    parse = parse_data_from_cards(cards)
-    write_db(parse,'THRILLER')
+# if __name__ == '__main__':
+#     html = get_html(THRILLER) 
+#     cards = get_card_from_html(html)
+#     parse = parse_data_from_cards(cards)
+#     write_db(parse,'THRILLER')
 
 
 

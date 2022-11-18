@@ -33,7 +33,7 @@ class AccountActivationView(APIView):
         user = User.objects.filter(activation_code=activation_code).first()
         if not user:
             return Response(
-                'Page not found', 
+                'PaGenrege not found', 
                 status=status.HTTP_404_NOT_FOUND
                 )
         user.is_active = True

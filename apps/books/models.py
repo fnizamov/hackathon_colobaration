@@ -1,9 +1,13 @@
+from random import randint
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
+
 from slugify import slugify
-from .utils import get_time
+from .parsing import get_db
+
+
 
 User = get_user_model()
 
@@ -87,3 +91,24 @@ class BookImage(models.Model):
 
     def __str__(self) -> str:
         return f'Image to {self.book.title}'
+
+
+# db = get_db('ABC')
+
+
+# for i in db:
+#     book = Book.objects.create(
+#             user = User.objects.get(username='admin'),
+#             genre = Genre.objects.get(title='ABC'),
+#             author = i['author'],
+#             title = i['title'],
+#             description = i['desc'],
+#             year= randint(1950, 2022),
+#             price = randint(200, 2000),
+#             discount_price = randint(1, 50),
+#             pages = randint(1, 1000),
+#             weight = randint(100, 900),
+#             image_link = i['photo'],
+#             stock = randint(100, 300)
+#             )
+    
