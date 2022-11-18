@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     
 
-    'apps.account',
     'apps.books',
     'apps.account',
     'apps.review',
