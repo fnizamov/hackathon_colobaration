@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import Genre, Book, BookImage
 
-# admin.site.register((Tag, Comment))
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
