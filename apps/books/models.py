@@ -62,6 +62,8 @@ class Book(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    views_count = models.IntegerField(default=0, blank=True)
+    more = models.SlugField(max_length=300, db_index=True, blank=True)
 
     def __str__(self) -> str:
         return self.title
@@ -69,6 +71,7 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title + get_time())
+            self.more = f'http://127.0.0.1:8000/market/books/{self.slug}'
         super().save(*args, **kwargs)
         
     class Meta:
@@ -93,13 +96,13 @@ class BookImage(models.Model):
         return f'Image to {self.book.title}'
 
 
-# db = get_db('ABC')
+# db = get_db('CYBERPUNK')
 
 
 # for i in db:
 #     book = Book.objects.create(
 #             user = User.objects.get(username='admin'),
-#             genre = Genre.objects.get(title='Роман'),
+#             genre = Genre.objects.get(title='Cyberpank'),
 #             author = i['author'],
 #             title = i['title'],
 #             description = i['desc'],
