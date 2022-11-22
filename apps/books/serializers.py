@@ -1,8 +1,4 @@
-from dataclasses import fields
-from email.policy import default
-from requests import request
 from rest_framework import serializers
-from django.db.models import Avg
 
 from .models import(
     Genre,
@@ -16,9 +12,10 @@ from apps.review.serializers import CommentSerializer
 class BooksSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
+
     class Meta:
         model = Book
-        exclude = ('discount', 'discount_price', 'stock')
+        exclude = ('discount', 'discount_price', 'stock', 'more')
 
     def validate_price(self, price):
         if price < 0:
@@ -45,12 +42,8 @@ class BooksSerializer(serializers.ModelSerializer):
 class BooksListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ('title', 'genre', 'author', 'year', 'pages', 'language', 'price')
+        fields = ('title', 'genre', 'author', 'price', 'more')
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation['comments_count'] = instance.comments.all().count()
-        return representation
 
 
 class GenreListSerializer(serializers.ModelSerializer):
