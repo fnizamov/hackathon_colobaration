@@ -16,6 +16,7 @@ from .serializers import (
     BooksListSerializer,
     BooksSerializer,
     BookCreateSerializer,
+    CommentSerializer,
 )
 
 from .permissions import IsOwner
@@ -100,3 +101,13 @@ class BookViewSet(ModelViewSet):
         instance.views_count += 1
         instance.save()
         return super().retrieve(request, *args, **kwargs)
+
+    @action(detail=True, methods=['POST', 'DELETE'])
+    def comment(self, request, pk=None):
+        book = self.get_object()
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save(user=request.user, book=book)
+            return Response(
+                serializer.data, status=status.HTTP_201_CREATED
+                )

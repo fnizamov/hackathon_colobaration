@@ -4,9 +4,8 @@ from .models import(
     Genre,
     Book,
     BookImage,
+    Comment,
 )
-
-from apps.review.serializers import CommentSerializer
 
 
 class BooksSerializer(serializers.ModelSerializer):
@@ -81,3 +80,20 @@ class BookCreateSerializer(serializers.ModelSerializer):
             images.append(BookImage(book=book, image=image))
         BookImage.objects.bulk_create(images)
         return book
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(
+        default=serializers.CurrentUserDefault(),
+        source='user.username'
+    )
+
+    class Meta:
+        model = Comment
+        fields = "__all__"
+
+
+class CommentImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookImage
+        fields = 'image',

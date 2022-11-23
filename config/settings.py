@@ -49,7 +49,6 @@ INSTALLED_APPS = [
 
     'apps.books',
     'apps.account',
-    'apps.review',
 ]
 
 MIDDLEWARE = [
