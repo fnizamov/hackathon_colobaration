@@ -54,11 +54,11 @@ class Book(models.Model):
     price = models.PositiveSmallIntegerField()
     discount = models.BooleanField(default=False)
     discount_price = models.PositiveSmallIntegerField(blank=True, null=True)
-    pages = models.PositiveIntegerField(default=1)
+    pages = models.PositiveIntegerField()
     weight = models.PositiveSmallIntegerField()
-    image = models.ImageField(upload_to='media/books_images/%Y/%m/%d', blank=True, null=True)
+    image = models.ImageField(upload_to='post_images', blank=True, default='default/29302.png')
     image_link = models.CharField(max_length=1000, blank=True, null=True)
-    stock = models.PositiveIntegerField(default=1)
+    stock = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -85,7 +85,7 @@ class Book(models.Model):
 
 
 class BookImage(models.Model):
-    image = models.ImageField(upload_to='media/books_images/carousel')
+    image = models.ImageField(upload_to='carousel')
     book = models.ForeignKey(
         to=Book,
         on_delete=models.CASCADE,
@@ -94,6 +94,57 @@ class BookImage(models.Model):
 
     def __str__(self) -> str:
         return f'Image to {self.book.title}'
+
+
+
+class Comment(models.Model):
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+    RAITING_CHOICES = (
+        (ONE, '1'),
+        (TWO, '2'),
+        (THREE, '3'),
+        (FOUR, '4'),
+        (FIVE, '5')
+    )
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    book = models.ForeignKey(
+        to=Book,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    rating = models.PositiveSmallIntegerField(
+        choices=RAITING_CHOICES,
+        blank=True,
+        null=True)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self) -> str:
+        return f'Comment from {self.user.username} to {self.book.title}'
+
+
+class CommentImage(models.Model):
+    image = models.ImageField(upload_to='media/comment_images/carousel')
+    comment = models.ForeignKey(
+        to=Comment,
+        on_delete=models.CASCADE,
+        related_name='comment_images'
+    )
+
+    def str(self) -> str:
+        return f'Image to {self.comment.book}'
 
 
 # db = get_db('CYBERPUNK')

@@ -25,3 +25,5 @@ requests
 #для связи с СУБД
 peewee
 lxml
+pyTelegramBotAPI==3.7.1
+selenium==4.5.0
