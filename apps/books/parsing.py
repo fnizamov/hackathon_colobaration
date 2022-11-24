@@ -44,13 +44,13 @@ def get_photo(cards):
     return result
 
 
-
 def get_author(cards):
     result = []
     for card in cards:
         author = card.find('span', class_='desc2').text.strip()
         result.append(author)
     return result
+
 
 def get_page(cards):
     result = []
