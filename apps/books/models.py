@@ -29,6 +29,7 @@ class Genre(models.Model):
         verbose_name = 'Жанр'
         verbose_name_plural = 'Жанры'
 
+
 class Book(models.Model):
     LANGUAGE_CHOICES = (
         ('russian', 'Русский'),
@@ -52,11 +53,9 @@ class Book(models.Model):
     year = models.PositiveIntegerField()
     language = models.CharField(max_length=7, choices=LANGUAGE_CHOICES, default='русский')
     price = models.PositiveSmallIntegerField()
-    discount = models.BooleanField(default=False)
-    discount_price = models.PositiveSmallIntegerField(blank=True, null=True)
     pages = models.PositiveIntegerField()
     weight = models.PositiveSmallIntegerField()
-    image = models.ImageField(upload_to='post_images', blank=True, default='default/29302.png')
+    image = models.ImageField(upload_to='post_images', blank=True)
     image_link = models.CharField(max_length=1000, blank=True, null=True)
     stock = models.PositiveIntegerField()
     available = models.BooleanField(default=True)
@@ -79,11 +78,7 @@ class Book(models.Model):
         verbose_name_plural = 'Книги'
         ordering = ('title',)
         index_together = (('title', 'slug'))
-
-    def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk})
-
-
+        
 class BookImage(models.Model):
     image = models.ImageField(upload_to='carousel')
     book = models.ForeignKey(

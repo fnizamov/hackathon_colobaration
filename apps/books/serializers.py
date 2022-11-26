@@ -16,16 +16,6 @@ class BooksSerializer(serializers.ModelSerializer):
         model = Book
         exclude = ('discount', 'discount_price', 'stock', 'more')
 
-    def validate_price(self, price):
-        if price < 0:
-            raise serializers.ValidationError('Цена не может быть отрицательной')
-        return price
-
-    def validate_quantity(self, quantity):
-        if quantity < 0:
-            raise serializers.ValidationError('Количество не может быть отрицательной')
-        return quantity
-
     def validate(self, attrs):
         user = self.context['request'].user
         attrs['user'] = user

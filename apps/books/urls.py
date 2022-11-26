@@ -10,6 +10,6 @@ router.register('genres', GenreViewSet, 'genre')
 router.register('filters', BookGenreView, 'filter')
 
 urlpatterns = [
-    # path('', include('apps.review.urls'))
+
 ]
 urlpatterns += router.urls
