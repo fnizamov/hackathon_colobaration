@@ -24,7 +24,7 @@ class BookAdmin(admin.ModelAdmin):
     model = Book
     search_fields = ['title']
     list_display = ['title', 'slug', 'price', 'stock', 'available', 'created', 'updated']
-    list_filter = ['available', 'created', 'updated', 'discount']
+    list_filter = ['available', 'created', 'updated']
     list_editable = ['price', 'stock', 'available']
     prepopulated_fields = {'slug': ('title',)}
     inlines = [BookInLineImages]

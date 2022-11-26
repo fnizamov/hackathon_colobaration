@@ -16,7 +16,6 @@ from .serializers import (
     BooksListSerializer,
     BooksSerializer,
     BookCreateSerializer,
-    # BookImageSerializer,
     CommentSerializer
 )
 
